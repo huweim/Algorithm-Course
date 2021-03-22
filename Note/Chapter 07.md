@@ -103,3 +103,31 @@ Minimum Cut Problem
   + If there exists an augmenting path, then we can improve f by  sending flow along path.
 
 ### 7.3 Choosing Good Augmenting Paths
+
+#### I. Choosing Good Augmenting Paths
+
++ Selection
+  + Some choices lead to exponential algorithms.   -> $O(2^n)$
+  + Clever choices lead to polynomial algorithms.   -> $O(n)$
++ Goal
+  + Can find augmenting paths efficiently.
+  + Few iterations.
++ Choose augmenting paths with: [Edmonds-Karp 1972, Dinitz 1970]
+  + Max bottleneck capacity.
+  + Fewest number of edges.
+  + Sufficiently large bottleneck capacity.
+  + PS: Find the large enough bottleneck capacity
+
+#### II. Capacity Scaling
+
++ Intuition -> Choosing path with high bottleneck capacity
+  + Maintain scaling parameter $\Delta$
+  + Let the $\Delta$-residual graph $G_f(\Delta)$ be the subgraph of the residual  graph consisting of only arcs with capacity at least $\Delta$.
+
+<img src="./Image/Slide6.44.png" alt="Slide5.4" align='left' style="zoom: 40%;" />
+
++ Correctness -> If the algorithm terminates, then f is a max flow.
+  + Pf.
+  + By integrality invariant, when $\Delta$ = 1 $\Rightarrow$ $G_f(\Delta)$ = $G_f$.
+    + $\Delta$ = 1, it won't filter out any edges
+  + Upon termination of $\Delta$ = 1 phase, there are no augmenting paths.
