@@ -40,6 +40,7 @@
 
 + Def. Augmenting path
   + a simple s-t path P in the residual graph $G_f$ 
+  + ❗Notion: in residual graph
 + Def. Bottleneck capacity
   + of an augmenting path P is the minimum residual  capacity of any edge in P
 + Def. Claim
@@ -64,11 +65,16 @@ Minimum Cut Problem
 ##### A. Concept
 
 + An s-t cut is a partition (A, B) of V with s $\in$ A and t $\in$ B.
-+ The capacity of a cut (A, B) is: $cap(A,B) = \sum\limits_{e-out-of-A} c(e)$
++ ⭐The capacity of a cut (A, B) is: $cap(A,B) = \sum\limits_{e-out-of-A} c(e)$
+  + Definition of $cap(A,B)$ is important
 + Min s-t cut problem.  
   + Find an s-t cut of minimum capacity
 
 <img src="./Image/Slide6.29.png" alt="Slide5.4" align='left' style="zoom: 40%;" />
+
++ ❗Notion:
+  + Capacity is only out of A, not reduce the capacity of edge into A.
+  + Value need to reduce the capacity of edge into A
 
 + Flow value lemma
   + Let f be any flow, and let (A, B) be any s-t cut. Then
@@ -131,3 +137,58 @@ Minimum Cut Problem
   + By integrality invariant, when $\Delta$ = 1 $\Rightarrow$ $G_f(\Delta)$ = $G_f$.
     + $\Delta$ = 1, it won't filter out any edges
   + Upon termination of $\Delta$ = 1 phase, there are no augmenting paths.
+
+### 7.5 Bipartite Matching
+
+#### I. Definition
+
++ Matching
+  + Input: undirected graph G = (V, E).
+  + M $\subseteq$ E is a matching if each node appears in at most one edge in M.
+    + i.e. one node, one edge
+  +  Max matching: find a max cardinality matching.
+
+<img src="./Image/Slide6.53.png" alt="Slide5.4" align='left' style="zoom: 40%;" />
+
++ Bipartite matching
+  + Input: undirected, bipartite graph G = (L $\cup$ R, E).
+    + like hw2 problem 5 and 6, constructs a bipartite graph
+  + M $\subseteq$ E is a matching if each node appears in at most one edge in M.
+  +  Max matching: find a max cardinality matching.
+
+<img src="./Image/Slide6.55.png" alt="Slide5.4" align='left' style="zoom: 40%;" />
+
+#### II. Algorithm
+
++ Max flow formulation
+  + Create digraph G' = (L $\cup$ R $\cup$ {s, t}, E' ).
+  + Direct all edges from L to R, and assign infinite (or unit) capacity.
+  + Add source s, and unit capacity edges from s to each node in L.
+  + Add sink t, and unit capacity edges from each node in R to t.
+
+<img src="./Image/Slide6.56.png" alt="Slide5.4" align='left' style="zoom: 40%;" />
+
+##### A. Proof
+
++ Theorem. 
+  + Max cardinality matching in G = value of max flow in G'.
++ Pf. first prove  $\leq$
+  + Given max matching M of cardinality k.
+  + Consider flow f that sends 1 unit along each of k paths.
+  + f is a flow, and has cardinality k.
+  + My understanding
+    + 左边有k条边match，右边至少可以找到这么k path，所以flow value至少是k ->  左边 $\leq$ 右边
+
+<img src="./Image/Slide6.57.png" alt="Slide5.4" align='left' style="zoom: 40%;" />
+
++ Pf. prove  $\geq$
+  + Let f be a max flow in G' of value k.
+  + Integrality theorem $\Rightarrow$ k is integral and can assume f is 0-1
+  + Consider M = set of edges from L to R with f(e) = 1
+    + each node in L and R participates in at most one edge in M
+    + |M| = k: consider cut (L $\cup$ s, R $\cup$ t)
+  + My understanding
+    + 中间的 flow 非0即1 -> max matching $\geq$ k -> 左边  $\geq$  右边
++ Therefore, Max cardinality matching in G = value of max flow in G'
+
+### 7.7 Extensions to Max Flow
