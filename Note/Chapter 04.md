@@ -1,4 +1,4 @@
-# Chapter 04
+# Chapter 04 Greedy Algorithms
 
 ### 4.1 Interval Scheduling: The Greedy Algorithm Stays Ahead
 
